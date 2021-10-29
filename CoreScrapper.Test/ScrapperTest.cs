@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 
 namespace CoreScrapper.Test
 {
@@ -12,16 +13,31 @@ namespace CoreScrapper.Test
         }
 
         [Test]
-        public void HtmlFileShouldExist()
+        public void HotelNameShouldComeCorrectly()
         {
-            Assert.Pass();
+            var model = _scrapper.Exrtact(@"Data\task 1 - Kempinski Hotel Bristol Berlin, Germany - Booking.com.html");
+            Assert.AreEqual(model.Name, "Kempinski Hotel Bristol Berlin");
         }
 
         [Test]
-        public void HotelNameShouldComeCorrectly()
+        public void NumberOfReviewsShouldComeCorrectly()
         {
-            _scrapper.Exrtact(@"Data\task 1 - Kempinski Hotel Bristol Berlin, Germany - Booking.com.html");
-            Assert.Pass();
+            var model = _scrapper.Exrtact(@"Data\task 1 - Kempinski Hotel Bristol Berlin, Germany - Booking.com.html");
+            Assert.AreEqual(model.NumberOfReviews, "1401");
+        }
+
+        [Test]
+        public void RoomCategoriesShouldComeCorrectly()
+        {
+            var model = _scrapper.Exrtact(@"Data\task 1 - Kempinski Hotel Bristol Berlin, Germany - Booking.com.html");
+            Assert.AreEqual(model.RoomCategories.Count, 7);
+        }
+
+        [Test]
+        public void AlternativeHotelsShouldComeCorrectly()
+        {
+            var model = _scrapper.Exrtact(@"Data\task 1 - Kempinski Hotel Bristol Berlin, Germany - Booking.com.html");
+            Assert.AreEqual(model.AlternativeHotels.Count, 4);
         }
     }
 }
